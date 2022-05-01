@@ -1,6 +1,11 @@
-//! Blinks the LED on a Pico board
+//! # 'ROM Functions' Example
 //!
-//! This will blink an LED attached to GP25, which is the pin the Pico uses for the on-board LED.
+//! This application demonstrates how to call functions in the RP2040's boot ROM.
+//!
+//! It may need to be adapted to your particular board layout and/or pin assignment.
+//!
+//! See the `Cargo.toml` file for Copyright and license details.
+
 #![no_std]
 #![no_main]
 
@@ -23,18 +28,26 @@ use bsp::hal::{
     watchdog::Watchdog,
 };
 
+/// External high-speed crystal on the Raspberry Pi Pico board is 12 MHz. Adjust
+/// if your board has a different frequency
+const XTAL_FREQ_HZ: u32 = 12_000_000u32;
+
+/// Our Cortex-M systick goes from this value down to zero. For our timer maths
+/// to work, this value must be of the form `2**N - 1`.
+const SYSTICK_RELOAD: u32 = 0x00FF_FFFF;
+
 #[entry]
 fn main() -> ! {
     info!("Program start");
+
     let mut pac = pac::Peripherals::take().unwrap();
-    let core = pac::CorePeripherals::take().unwrap();
+    let mut core = pac::CorePeripherals::take().unwrap();
+
     let mut watchdog = Watchdog::new(pac.WATCHDOG);
     let sio = Sio::new(pac.SIO);
 
-    // External high-speed crystal on the pico board is 12Mhz
-    let external_xtal_freq_hz = 12_000_000u32;
     let clocks = init_clocks_and_plls(
-        external_xtal_freq_hz,
+        XTAL_FREQ_HZ,
         pac.XOSC,
         pac.CLOCKS,
         pac.PLL_SYS,
@@ -45,8 +58,6 @@ fn main() -> ! {
     .ok()
     .unwrap();
 
-    let mut delay = cortex_m::delay::Delay::new(core.SYST, clocks.system_clock.freq().integer());
-
     let pins = bsp::Pins::new(
         pac.IO_BANK0,
         pac.PADS_BANK0,
@@ -54,8 +65,24 @@ fn main() -> ! {
         &mut pac.RESETS,
     );
 
+    // Use systick as a count-down timer
+    core.SYST.set_reload(SYSTICK_RELOAD);
+    core.SYST.clear_current();
+    core.SYST.enable_counter();
+
+    let mut delay = cortex_m::delay::Delay::new(core.SYST, clocks.system_clock.freq().integer());
+
     let mut led_pin = pins.led.into_push_pull_output();
 
+    // Now just spin (whilst the UART does its thing)
+    for _ in 0..1_000_000 {
+        cortex_m::asm::nop();
+    }
+
+    // Reboot back into USB mode (no activity, both interfaces enabled)
+    bsp::hal::rom_data::reset_to_usb_boot(0, 0);
+
+    // In case the reboot fails
     loop {
         info!("on!");
         led_pin.set_high().unwrap();
