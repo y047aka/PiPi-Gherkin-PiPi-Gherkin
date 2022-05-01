@@ -74,6 +74,14 @@ fn main() -> ! {
 
     let mut led_pin = pins.led.into_push_pull_output();
 
+    for _ in 0..5 {
+        info!("on!");
+        led_pin.set_high().unwrap();
+        delay.delay_ms(500);
+        info!("off!");
+        led_pin.set_low().unwrap();
+        delay.delay_ms(500);
+    }
     // Now just spin (whilst the UART does its thing)
     for _ in 0..1_000_000 {
         cortex_m::asm::nop();
@@ -84,12 +92,7 @@ fn main() -> ! {
 
     // In case the reboot fails
     loop {
-        info!("on!");
-        led_pin.set_high().unwrap();
-        delay.delay_ms(500);
-        info!("off!");
-        led_pin.set_low().unwrap();
-        delay.delay_ms(500);
+        cortex_m::asm::nop();
     }
 }
 
