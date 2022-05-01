@@ -58,6 +58,7 @@ kbd.define_mode_key :UP_RAISE,   [ :KC_UP,                              :raise, 
 kbd.define_mode_key :DOWN_LOWER, [ :KC_DOWN,                            :lower,                     150,             150 ]
 kbd.define_mode_key :ADJUST,     [ Proc.new { kbd.lock_layer :adjust }, :KC_LSFT,                   300,             nil ]
 kbd.define_mode_key :UNLOCK,     [ Proc.new { kbd.unlock_layer },       :KC_LSFT,                   300,             nil ]
+kbd.define_mode_key :BOOTSEL,    [ Proc.new { kbd.bootsel! },           nil,                        200,             nil ]
 
 # Tip: You can also switch current layer by single click like this:
 #   kbd.define_mode_key :RAISE, [ Proc.new { kbd.raise_layer }, :KC_LSFT, 150, nil ]
