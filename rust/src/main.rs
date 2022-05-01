@@ -1,11 +1,3 @@
-//! # 'ROM Functions' Example
-//!
-//! This application demonstrates how to call functions in the RP2040's boot ROM.
-//!
-//! It may need to be adapted to your particular board layout and/or pin assignment.
-//!
-//! See the `Cargo.toml` file for Copyright and license details.
-
 #![no_std]
 #![no_main]
 
