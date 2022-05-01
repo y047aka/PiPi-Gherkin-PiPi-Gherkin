@@ -29,11 +29,11 @@ gherkin.keymap = [
     [
         KC.MT(KC.TAB, KC.ESC),     KC.Q,    KC.W,    KC.E,    KC.R,    KC.T,    KC.N6,   KC.N7,   KC.N8,   KC.N9,
         KC.LCTRL,KC.A,    KC.S,    KC.D,    KC.F,    KC.G,    KC.N1,   KC.N2,   KC.N3,   KC.N4,
-        KC.LSFT, KC.Z,    KC.X,    KC.C,    KC.V,    KC.B,    KC.LGUI, KC.MO(1),KC.LEFT, KC.UP,
+        KC.LSFT, KC.Z,    KC.X,    KC.C,    KC.V,    KC.B,    KC.LGUI, KC.MO(1),KC.LEFT, KC.DOWN,
 
         KC.N0,   KC.MINS, KC.EQL,  KC.GRV,  KC.Y,    KC.U,    KC.I,    KC.O,    KC.P,    KC.MT(KC.BSPC, KC.ENT),
         KC.N5,   KC.LBRC, KC.RBRC, KC.SPC,  KC.H,    KC.J,    KC.K,    KC.L,    KC.SCLN, KC.QUOT,
-        KC.DOWN, KC.RGHT, KC.BSLS, KC.ENT,  KC.N,    KC.M,    KC.COMM, KC.DOT,  KC.SLSH, KC.SPC,
+        KC.UP,   KC.RGHT, KC.BSLS, KC.ENT,  KC.N,    KC.M,    KC.COMM, KC.DOT,  KC.SLSH, KC.SPC,
     ],
     [
         _______, KC.EXLM, KC.AT,   KC.HASH, KC.DLR,  KC.PERC, _______, _______, _______, _______,
