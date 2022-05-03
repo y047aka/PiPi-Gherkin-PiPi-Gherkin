@@ -146,10 +146,10 @@ fn main() -> ! {
 
 pub type Column<'a> = &'a dyn InputPin<Error = Infallible>;
 pub type Row<'a> = &'a mut dyn OutputPin<Error = Infallible>;
-pub type StateMatrix = [[bool; 6]; 5];
+pub type StateMatrix = [[bool; 6]; 10];
 
 fn scan_keys(rows: &mut [Row], cols: &[Column]) -> StateMatrix {
-    let mut matrix = [[false; 6]; 5];
+    let mut matrix = [[false; 6]; 10];
     for (row_pin, row_state) in rows.iter_mut().zip(matrix.iter_mut()) {
         row_pin.set_low().unwrap();
         asm::delay(10);
@@ -226,13 +226,13 @@ fn build_report(matrix: &StateMatrix) -> KeyboardReport {
     if matrix[2][5] {
         push_key(KC_2);
     }
-
     if matrix[3][0] {
         push_key(KC_3);
     }
     if matrix[3][1] {
         push_key(KC_4);
     }
+
     if matrix[3][2] {
         push_key(KC_4);
     }
@@ -251,16 +251,109 @@ fn build_report(matrix: &StateMatrix) -> KeyboardReport {
     if matrix[4][1] {
         push_key(KC_B);
     }
-    if matrix[3][2] {
+    if matrix[4][2] {
         push_key(KC_4);
     }
-    if matrix[3][3] {
+    if matrix[4][3] {
         push_key(KC_Z);
     }
-    if matrix[3][4] {
+    if matrix[4][4] {
         push_key(KC_X);
     }
-    if matrix[3][5] {
+    if matrix[4][5] {
+        push_key(KC_C);
+    }
+
+    if matrix[5][0] {
+        push_key(KC_0);
+    }
+    if matrix[5][1] {
+        push_key(KC_Q);
+    }
+    if matrix[5][2] {
+        push_key(KC_W);
+    }
+    if matrix[5][3] {
+        push_key(KC_E);
+    }
+    if matrix[5][4] {
+        push_key(KC_Y);
+    }
+    if matrix[5][5] {
+        push_key(KC_U);
+    }
+    if matrix[6][0] {
+        push_key(KC_I);
+    }
+    if matrix[6][1] {
+        push_key(KC_O);
+    }
+    if matrix[6][2] {
+        push_key(KC_P);
+    }
+    if matrix[6][3] {
+        push_key(KC_9);
+    }
+
+    if matrix[6][4] {
+        push_key(KC_5);
+    }
+    if matrix[6][5] {
+        push_key(KC_A);
+    }
+    if matrix[7][0] {
+        push_key(KC_S);
+    }
+    if matrix[7][1] {
+        push_key(KC_D);
+    }
+    if matrix[7][2] {
+        push_key(KC_H);
+    }
+    if matrix[7][3] {
+        push_key(KC_J);
+    }
+    if matrix[7][4] {
+        push_key(KC_K);
+    }
+    if matrix[7][5] {
+        push_key(KC_L);
+    }
+    if matrix[8][0] {
+        push_key(KC_3);
+    }
+    if matrix[8][1] {
+        push_key(KC_4);
+    }
+
+    if matrix[8][2] {
+        push_key(KC_4);
+    }
+    if matrix[8][3] {
+        push_key(KC_Z);
+    }
+    if matrix[8][4] {
+        push_key(KC_X);
+    }
+    if matrix[8][5] {
+        push_key(KC_C);
+    }
+    if matrix[9][0] {
+        push_key(KC_N);
+    }
+    if matrix[9][1] {
+        push_key(KC_M);
+    }
+    if matrix[9][2] {
+        push_key(KC_4);
+    }
+    if matrix[9][3] {
+        push_key(KC_Z);
+    }
+    if matrix[9][4] {
+        push_key(KC_X);
+    }
+    if matrix[9][5] {
         push_key(KC_C);
     }
 
