@@ -268,13 +268,13 @@ fn build_report(matrix: &StateMatrix) -> KeyboardReport {
         push_key(KC_0);
     }
     if matrix[5][1] {
-        push_key(KC_Q);
+        push_key(KC_MINUS);
     }
     if matrix[5][2] {
-        push_key(KC_W);
+        push_key(KC_EQUAL);
     }
     if matrix[5][3] {
-        push_key(KC_E);
+        push_key(KC_GRAVE);
     }
     if matrix[5][4] {
         push_key(KC_Y);
@@ -299,10 +299,10 @@ fn build_report(matrix: &StateMatrix) -> KeyboardReport {
         push_key(KC_5);
     }
     if matrix[6][5] {
-        push_key(KC_A);
+        push_key(KC_LEFT_BRACKET);
     }
     if matrix[7][0] {
-        push_key(KC_S);
+        push_key(KC_RIGHT_BRACKET);
     }
     if matrix[7][1] {
         push_key(KC_SPACE);
@@ -320,10 +320,10 @@ fn build_report(matrix: &StateMatrix) -> KeyboardReport {
         push_key(KC_L);
     }
     if matrix[8][0] {
-        push_key(KC_3);
+        push_key(KC_SEMICOLON);
     }
     if matrix[8][1] {
-        push_key(KC_4);
+        push_key(KC_QUOTE);
     }
 
     if matrix[8][2] {
@@ -345,13 +345,13 @@ fn build_report(matrix: &StateMatrix) -> KeyboardReport {
         push_key(KC_M);
     }
     if matrix[9][2] {
-        push_key(KC_4);
+        push_key(KC_COMMA);
     }
     if matrix[9][3] {
-        push_key(KC_Z);
+        push_key(KC_DOT);
     }
     if matrix[9][4] {
-        push_key(KC_X);
+        push_key(KC_SLASH);
     }
     if matrix[9][5] {
         push_key(BOOTSEL);

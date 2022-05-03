@@ -48,6 +48,19 @@ pub enum Keycode {
     KC_BACKSPACE, // DELETE (Backspace)
     KC_TAB,       // Tab
     KC_SPACE,     // Spacebar
+
+    KC_MINUS,         // - and (underscore)
+    KC_EQUAL,         // = and +
+    KC_LEFT_BRACKET,  // [ and {
+    KC_RIGHT_BRACKET, // ] and }
+    KC_BACKSLASH,     // \ and ｜
+    // KC_NONUS_HASH Non-US # and ~
+    KC_SEMICOLON, // ; and :
+    KC_QUOTE,     // ' and "
+    KC_GRAVE,     // Grave Accent and Tilde
+    KC_COMMA,     // , and <
+    KC_DOT,       // . and >
+    KC_SLASH,     // / and ?
 }
 
 pub fn to_u8(keycode: Keycode) -> u8 {
@@ -106,5 +119,18 @@ pub fn to_u8(keycode: Keycode) -> u8 {
         KC_BACKSPACE => 0x2A,
         KC_TAB => 0x2B,
         KC_SPACE => 0x2C,
+
+        KC_MINUS => 0x2D,
+        KC_EQUAL => 0x2E,
+        KC_LEFT_BRACKET => 0x2F,
+        KC_RIGHT_BRACKET => 0x30,
+        KC_BACKSLASH => 0x31,
+        // KC_NONUS_HASH
+        KC_SEMICOLON => 0x33,
+        KC_QUOTE => 0x34,
+        KC_GRAVE => 0x35,
+        KC_COMMA => 0x36,
+        KC_DOT => 0x37,
+        KC_SLASH => 0x38,
     }
 }
