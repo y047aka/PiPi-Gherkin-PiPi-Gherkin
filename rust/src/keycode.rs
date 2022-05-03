@@ -61,6 +61,11 @@ pub enum Keycode {
     KC_COMMA,     // , and <
     KC_DOT,       // . and >
     KC_SLASH,     // / and ?
+
+    KC_RIGHT, // Right Arrow
+    KC_LEFT,  // Left Arrow
+    KC_DOWN,  // Down Arrow
+    KC_UP,    //Up Arrow
 }
 
 pub fn to_u8(keycode: Keycode) -> u8 {
@@ -132,5 +137,10 @@ pub fn to_u8(keycode: Keycode) -> u8 {
         KC_COMMA => 0x36,
         KC_DOT => 0x37,
         KC_SLASH => 0x38,
+
+        KC_RIGHT => 0x4F,
+        KC_LEFT => 0x50,
+        KC_DOWN => 0x51,
+        KC_UP => 0x52,
     }
 }

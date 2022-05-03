@@ -258,10 +258,10 @@ fn build_report(matrix: &StateMatrix) -> KeyboardReport {
         push_key(KC_Z);
     }
     if matrix[4][4] {
-        push_key(KC_X);
+        push_key(KC_LEFT);
     }
     if matrix[4][5] {
-        push_key(KC_C);
+        push_key(KC_DOWN);
     }
 
     if matrix[5][0] {
@@ -327,10 +327,10 @@ fn build_report(matrix: &StateMatrix) -> KeyboardReport {
     }
 
     if matrix[8][2] {
-        push_key(KC_4);
+        push_key(KC_UP);
     }
     if matrix[8][3] {
-        push_key(KC_Z);
+        push_key(KC_RIGHT);
     }
     if matrix[8][4] {
         push_key(KC_X);
