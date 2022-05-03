@@ -42,6 +42,12 @@ pub enum Keycode {
     KC_8, // 8 and *
     KC_9, // 9 and (
     KC_0, // 0 and )
+
+    KC_ENTER,     // Return (ENTER)
+    KC_ESCAPE,    // ESCAPE
+    KC_BACKSPACE, // DELETE (Backspace)
+    KC_TAB,       // Tab
+    KC_SPACE,     // Spacebar
 }
 
 pub fn to_u8(keycode: Keycode) -> u8 {
@@ -94,5 +100,11 @@ pub fn to_u8(keycode: Keycode) -> u8 {
         KC_8 => 0x25,
         KC_9 => 0x26,
         KC_0 => 0x27,
+
+        KC_ENTER => 0x28,
+        KC_ESCAPE => 0x29,
+        KC_BACKSPACE => 0x2A,
+        KC_TAB => 0x2B,
+        KC_SPACE => 0x2C,
     }
 }

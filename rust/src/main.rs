@@ -172,7 +172,7 @@ fn build_report(matrix: &StateMatrix) -> KeyboardReport {
     let modifier = 0;
 
     if matrix[0][0] {
-        push_key(BOOTSEL);
+        push_key(KC_TAB);
     }
     if matrix[0][1] {
         push_key(KC_Q);
@@ -292,7 +292,7 @@ fn build_report(matrix: &StateMatrix) -> KeyboardReport {
         push_key(KC_P);
     }
     if matrix[6][3] {
-        push_key(KC_9);
+        push_key(KC_BACKSPACE);
     }
 
     if matrix[6][4] {
@@ -305,7 +305,7 @@ fn build_report(matrix: &StateMatrix) -> KeyboardReport {
         push_key(KC_S);
     }
     if matrix[7][1] {
-        push_key(KC_D);
+        push_key(KC_SPACE);
     }
     if matrix[7][2] {
         push_key(KC_H);
@@ -336,7 +336,7 @@ fn build_report(matrix: &StateMatrix) -> KeyboardReport {
         push_key(KC_X);
     }
     if matrix[8][5] {
-        push_key(KC_C);
+        push_key(KC_ENTER);
     }
     if matrix[9][0] {
         push_key(KC_N);
@@ -354,7 +354,7 @@ fn build_report(matrix: &StateMatrix) -> KeyboardReport {
         push_key(KC_X);
     }
     if matrix[9][5] {
-        push_key(KC_C);
+        push_key(BOOTSEL);
     }
 
     KeyboardReport {
