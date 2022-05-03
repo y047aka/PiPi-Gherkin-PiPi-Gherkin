@@ -32,6 +32,9 @@ use usbd_hid::{
     },
 };
 
+mod keycode;
+use keycode::Keycode::{self, *};
+
 #[entry]
 fn main() -> ! {
     let mut pac = pac::Peripherals::take().unwrap();
@@ -143,10 +146,10 @@ fn main() -> ! {
 
 pub type Column<'a> = &'a dyn InputPin<Error = Infallible>;
 pub type Row<'a> = &'a mut dyn OutputPin<Error = Infallible>;
-pub type StateMatrix = [[bool; 3]; 2];
+pub type StateMatrix = [[bool; 6]; 2];
 
 fn scan_keys(rows: &mut [Row], cols: &[Column]) -> StateMatrix {
-    let mut matrix = [[false; 3]; 2];
+    let mut matrix = [[false; 6]; 2];
     for (row_pin, row_state) in rows.iter_mut().zip(matrix.iter_mut()) {
         row_pin.set_low().unwrap();
         asm::delay(10);
@@ -162,15 +165,12 @@ fn scan_keys(rows: &mut [Row], cols: &[Column]) -> StateMatrix {
 fn build_report(matrix: &StateMatrix) -> KeyboardReport {
     let mut keycodes = [0u8; 6];
     let mut keycode_count = 0;
-    let mut push_key = |keycode: u8| {
-        keycodes[keycode_count] = keycode;
+    let mut push_key = |keycode: Keycode| {
+        keycodes[keycode_count] = keycode::to_u8(keycode);
         keycode_count += 1;
     };
-    let mut modifier = 0;
+    let modifier = 0;
 
-    if matrix[0][2] {
-        modifier = 0x02; // LEFT SHIFFT
-    }
     if matrix[0][0] {
         push_key(KC_K);
 
@@ -178,10 +178,23 @@ fn build_report(matrix: &StateMatrix) -> KeyboardReport {
         bsp::hal::rom_data::reset_to_usb_boot(0, 0);
     }
     if matrix[0][1] {
-        push_key(KC_O);
+        push_key(KC_Q);
     }
+    if matrix[0][2] {
+        push_key(KC_W);
+    }
+    if matrix[0][3] {
+        push_key(KC_E);
+    }
+    if matrix[0][4] {
+        push_key(KC_R);
+    }
+    if matrix[0][5] {
+        push_key(KC_T);
+    }
+
     if matrix[1][0] {
-        push_key(KC_B);
+        push_key(KC_T);
     }
     if matrix[1][1] {
         push_key(KC_A);
@@ -194,33 +207,5 @@ fn build_report(matrix: &StateMatrix) -> KeyboardReport {
         keycodes,
     }
 }
-
-const KC_NO: u8 = 0x00; // Reserved (no event indicated)
-const KC_A: u8 = 0x04; // a and A
-const KC_B: u8 = 0x05; // b and B
-const KC_C: u8 = 0x06; // c and C
-const KC_D: u8 = 0x07; // d and D
-const KC_E: u8 = 0x08; // e and E
-const KC_F: u8 = 0x09; // f and F
-const KC_G: u8 = 0x0A; // g and G
-const KC_H: u8 = 0x0B; // h and H
-const KC_I: u8 = 0x0C; // i and I
-const KC_J: u8 = 0x0D; // j and J
-const KC_K: u8 = 0x0E; // k and K
-const KC_L: u8 = 0x0F; // l and L
-const KC_M: u8 = 0x10; // m and M
-const KC_N: u8 = 0x11; // n and N
-const KC_O: u8 = 0x12; // o and O
-const KC_P: u8 = 0x13; // p and P
-const KC_Q: u8 = 0x14; // q and Q
-const KC_R: u8 = 0x15; // r and R
-const KC_S: u8 = 0x16; // s and S
-const KC_T: u8 = 0x17; // t and T
-const KC_U: u8 = 0x18; // u and U
-const KC_V: u8 = 0x19; // v and V
-const KC_W: u8 = 0x1A; // w and W
-const KC_X: u8 = 0x1B; // x and X
-const KC_Y: u8 = 0x1C; // y and Y
-const KC_Z: u8 = 0x1D; // z and Z
 
 // End of file
