@@ -169,7 +169,7 @@ fn build_report(matrix: &StateMatrix) -> KeyboardReport {
         keycodes[keycode_count] = keycode::to_u8(keycode);
         keycode_count += 1;
     };
-    let modifier = 0;
+    let mut modifier = 0;
 
     if matrix[0][0] {
         push_key(KC_TAB);
@@ -203,7 +203,7 @@ fn build_report(matrix: &StateMatrix) -> KeyboardReport {
     }
 
     if matrix[1][4] {
-        push_key(KC_0);
+        modifier = 0x01;
     }
     if matrix[1][5] {
         push_key(KC_A);
@@ -234,7 +234,7 @@ fn build_report(matrix: &StateMatrix) -> KeyboardReport {
     }
 
     if matrix[3][2] {
-        push_key(KC_4);
+        modifier = 0x02;
     }
     if matrix[3][3] {
         push_key(KC_Z);
@@ -252,7 +252,7 @@ fn build_report(matrix: &StateMatrix) -> KeyboardReport {
         push_key(KC_B);
     }
     if matrix[4][2] {
-        push_key(KC_4);
+        modifier = 0x08;
     }
     if matrix[4][3] {
         push_key(KC_Z);
@@ -333,7 +333,7 @@ fn build_report(matrix: &StateMatrix) -> KeyboardReport {
         push_key(KC_RIGHT);
     }
     if matrix[8][4] {
-        push_key(KC_X);
+        modifier = 0x40;
     }
     if matrix[8][5] {
         push_key(KC_ENTER);
