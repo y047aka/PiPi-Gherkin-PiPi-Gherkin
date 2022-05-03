@@ -31,6 +31,17 @@ pub enum Keycode {
     KC_X, // x and X
     KC_Y, // y and Y
     KC_Z, // z and Z
+
+    KC_1, // 1 and !
+    KC_2, // 2 and @
+    KC_3, // 3 and #
+    KC_4, // 4 and $
+    KC_5, // 5 and %
+    KC_6, // 6 and ^
+    KC_7, // 7 and &
+    KC_8, // 8 and *
+    KC_9, // 9 and (
+    KC_0, // 0 and )
 }
 
 pub fn to_u8(keycode: Keycode) -> u8 {
@@ -72,5 +83,16 @@ pub fn to_u8(keycode: Keycode) -> u8 {
         KC_X => 0x1B,
         KC_Y => 0x1C,
         KC_Z => 0x1D,
+
+        KC_1 => 0x1E,
+        KC_2 => 0x1F,
+        KC_3 => 0x20,
+        KC_4 => 0x21,
+        KC_5 => 0x22,
+        KC_6 => 0x23,
+        KC_7 => 0x24,
+        KC_8 => 0x25,
+        KC_9 => 0x26,
+        KC_0 => 0x27,
     }
 }

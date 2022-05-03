@@ -189,12 +189,17 @@ fn build_report(matrix: &StateMatrix) -> KeyboardReport {
     if matrix[0][5] {
         push_key(KC_T);
     }
-
     if matrix[1][0] {
-        push_key(KC_T);
+        push_key(KC_6);
     }
     if matrix[1][1] {
-        push_key(KC_A);
+        push_key(KC_7);
+    }
+    if matrix[1][2] {
+        push_key(KC_8);
+    }
+    if matrix[1][3] {
+        push_key(KC_9);
     }
 
     KeyboardReport {
