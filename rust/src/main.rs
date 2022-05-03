@@ -170,16 +170,20 @@ fn build_report(matrix: &StateMatrix) -> KeyboardReport {
 
     if matrix[0][2] {
         modifier = 0x02; // LEFT SHIFFT
-    } else if matrix[0][0] {
+    }
+    if matrix[0][0] {
         push_key(KC_K);
 
         // Reboot back into USB mode (no activity, both interfaces enabled)
         bsp::hal::rom_data::reset_to_usb_boot(0, 0);
-    } else if matrix[0][1] {
+    }
+    if matrix[0][1] {
         push_key(KC_O);
-    } else if matrix[1][0] {
+    }
+    if matrix[1][0] {
         push_key(KC_B);
-    } else if matrix[1][1] {
+    }
+    if matrix[1][1] {
         push_key(KC_A);
     }
 
