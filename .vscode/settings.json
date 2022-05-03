@@ -1,8 +1,4 @@
 {
     "rust-analyzer.cargo.target": "thumbv6m-none-eabi",
     "rust-analyzer.checkOnSave.allTargets": false,
-    "rust-analyzer.inlayHints.chainingHints": false,
-    "rust-analyzer.inlayHints.parameterHints": false,
-    "rust-analyzer.inlayHints.typeHints": false,
-    "rust-analyzer.inlayHints.hideNamedConstructorHints": false
 }
