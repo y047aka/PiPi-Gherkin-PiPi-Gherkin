@@ -116,7 +116,7 @@ fn main() -> ! {
 
     let mut led_pin = pins.led.into_push_pull_output();
 
-    for i in 1..100_000 {
+    for i in 1..1_000_000 {
         dev.poll(&mut [&mut hid]);
 
         if scan_countdown.wait().is_ok() {
