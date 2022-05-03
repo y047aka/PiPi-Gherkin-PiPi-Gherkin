@@ -146,10 +146,10 @@ fn main() -> ! {
 
 pub type Column<'a> = &'a dyn InputPin<Error = Infallible>;
 pub type Row<'a> = &'a mut dyn OutputPin<Error = Infallible>;
-pub type StateMatrix = [[bool; 6]; 2];
+pub type StateMatrix = [[bool; 6]; 5];
 
 fn scan_keys(rows: &mut [Row], cols: &[Column]) -> StateMatrix {
-    let mut matrix = [[false; 6]; 2];
+    let mut matrix = [[false; 6]; 5];
     for (row_pin, row_state) in rows.iter_mut().zip(matrix.iter_mut()) {
         row_pin.set_low().unwrap();
         asm::delay(10);
@@ -200,6 +200,68 @@ fn build_report(matrix: &StateMatrix) -> KeyboardReport {
     }
     if matrix[1][3] {
         push_key(KC_9);
+    }
+
+    if matrix[1][4] {
+        push_key(KC_0);
+    }
+    if matrix[1][5] {
+        push_key(KC_A);
+    }
+    if matrix[2][0] {
+        push_key(KC_S);
+    }
+    if matrix[2][1] {
+        push_key(KC_D);
+    }
+    if matrix[2][2] {
+        push_key(KC_F);
+    }
+    if matrix[2][3] {
+        push_key(KC_G);
+    }
+    if matrix[2][4] {
+        push_key(KC_1);
+    }
+    if matrix[2][5] {
+        push_key(KC_2);
+    }
+
+    if matrix[3][0] {
+        push_key(KC_3);
+    }
+    if matrix[3][1] {
+        push_key(KC_4);
+    }
+    if matrix[3][2] {
+        push_key(KC_4);
+    }
+    if matrix[3][3] {
+        push_key(KC_Z);
+    }
+    if matrix[3][4] {
+        push_key(KC_X);
+    }
+    if matrix[3][5] {
+        push_key(KC_C);
+    }
+    if matrix[4][0] {
+        push_key(KC_V);
+    }
+    if matrix[4][1] {
+        push_key(KC_B);
+    }
+    if matrix[3][2] {
+        push_key(KC_4);
+    }
+    if matrix[3][3] {
+        push_key(KC_Z);
+    }
+    if matrix[3][4] {
+        push_key(KC_X);
+    }
+    if matrix[3][5] {
+        push_key(KC_C);
     }
 
     KeyboardReport {
