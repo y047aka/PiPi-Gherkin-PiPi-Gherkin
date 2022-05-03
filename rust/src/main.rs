@@ -172,10 +172,7 @@ fn build_report(matrix: &StateMatrix) -> KeyboardReport {
     let modifier = 0;
 
     if matrix[0][0] {
-        push_key(KC_K);
-
-        // Reboot back into USB mode (no activity, both interfaces enabled)
-        bsp::hal::rom_data::reset_to_usb_boot(0, 0);
+        push_key(BOOTSEL);
     }
     if matrix[0][1] {
         push_key(KC_Q);

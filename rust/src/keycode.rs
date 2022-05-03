@@ -1,4 +1,8 @@
+use rp_pico as bsp;
+
 pub enum Keycode {
+    BOOTSEL,
+
     KC_NO, // Reserved (no event indicated)
 
     KC_A, // a and A
@@ -33,6 +37,13 @@ pub fn to_u8(keycode: Keycode) -> u8 {
     use Keycode::*;
 
     match keycode {
+        BOOTSEL => {
+            // Reboot back into USB mode (no activity, both interfaces enabled)
+            bsp::hal::rom_data::reset_to_usb_boot(0, 0);
+
+            0x00
+        }
+
         KC_NO => 0x00,
 
         KC_A => 0x04,
