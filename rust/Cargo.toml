@@ -29,6 +29,8 @@ rp-pico = "0.3.0"
 usb-device = "0.2.8"
 usbd-hid = "0.6"
 
+heapless = "0.7.10"
+
 # cargo build/run --release
 [profile.release]
 codegen-units = 1

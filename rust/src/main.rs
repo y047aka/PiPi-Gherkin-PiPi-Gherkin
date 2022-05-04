@@ -8,6 +8,7 @@ use cortex_m_rt::entry;
 use defmt_rtt as _;
 use embedded_hal::digital::v2::{InputPin, OutputPin};
 use embedded_time::duration::Extensions as _;
+use heapless::Deque;
 use panic_probe as _;
 
 // Provide an alias for our BSP so we can switch targets quickly.
@@ -116,13 +117,31 @@ fn main() -> ! {
 
     let mut led_pin = pins.led.into_push_pull_output();
 
+    let mut macro_queue = Deque::<KeyboardReport, 32>::new();
+    let mut is_macro_pressed = false;
+
     for i in 1..50_000_000 {
         dev.poll(&mut [&mut hid]);
 
         if scan_countdown.wait().is_ok() {
-            let state = scan_keys(rows, cols);
-            let report = build_report(&state);
-            hid.push_input(&report).ok();
+            if let Some(report) = macro_queue.pop_front() {
+                hid.push_input(&report).ok();
+            } else {
+                let state = scan_keys(rows, cols);
+                if state[4][3] {
+                    if !is_macro_pressed {
+                        for report in MACRO_SEQUENCE_Y047AKA {
+                            macro_queue.push_back(report.clone()).ok();
+                        }
+                    }
+                    is_macro_pressed = true;
+                } else {
+                    is_macro_pressed = false;
+
+                    let report = build_report(&state);
+                    hid.push_input(&report).ok();
+                }
+            }
         }
         // drop received data
         hid.pull_raw_output(&mut [0; 64]).ok();
@@ -364,5 +383,56 @@ fn build_report(matrix: &StateMatrix) -> KeyboardReport {
         keycodes,
     }
 }
+
+const MACRO_SEQUENCE_Y047AKA: &[KeyboardReport] = &[
+    KeyboardReport {
+        modifier: 0,
+        reserved: 0,
+        leds: 0,
+        keycodes: [0x1C, 0, 0, 0, 0, 0], // y
+    },
+    KeyboardReport {
+        modifier: 0,
+        reserved: 0,
+        leds: 0,
+        keycodes: [0x27, 0, 0, 0, 0, 0], // 0
+    },
+    KeyboardReport {
+        modifier: 0,
+        reserved: 0,
+        leds: 0,
+        keycodes: [0x21, 0, 0, 0, 0, 0], // 4
+    },
+    KeyboardReport {
+        modifier: 0,
+        reserved: 0,
+        leds: 0,
+        keycodes: [0x24, 0, 0, 0, 0, 0], // 7
+    },
+    KeyboardReport {
+        modifier: 0,
+        reserved: 0,
+        leds: 0,
+        keycodes: [0x04, 0, 0, 0, 0, 0], // a
+    },
+    KeyboardReport {
+        modifier: 0,
+        reserved: 0,
+        leds: 0,
+        keycodes: [0x0e, 0, 0, 0, 0, 0], // k
+    },
+    KeyboardReport {
+        modifier: 0,
+        reserved: 0,
+        leds: 0,
+        keycodes: [0x04, 0, 0, 0, 0, 0], // a
+    },
+    KeyboardReport {
+        modifier: 0,
+        reserved: 0,
+        leds: 0,
+        keycodes: [0x0, 0, 0, 0, 0, 0],
+    },
+];
 
 // End of file
