@@ -120,7 +120,7 @@ fn main() -> ! {
     let mut macro_queue = Deque::<KeyboardReport, 32>::new();
     let mut is_macro_pressed = false;
 
-    for i in 1..50_000_000 {
+    for i in 1..100_000_000 {
         dev.poll(&mut [&mut hid]);
 
         if scan_countdown.wait().is_ok() {
