@@ -222,7 +222,7 @@ fn build_report(matrix: &StateMatrix) -> KeyboardReport {
     }
 
     if matrix[1][4] {
-        modifier = 0x01;
+        modifier += 0x01;
     }
     if matrix[1][5] {
         push_key(KC_A);
@@ -253,7 +253,7 @@ fn build_report(matrix: &StateMatrix) -> KeyboardReport {
     }
 
     if matrix[3][2] {
-        modifier = 0x02;
+        modifier += 0x02;
     }
     if matrix[3][3] {
         push_key(KC_Z);
@@ -271,7 +271,7 @@ fn build_report(matrix: &StateMatrix) -> KeyboardReport {
         push_key(KC_B);
     }
     if matrix[4][2] {
-        modifier = 0x08;
+        modifier += 0x08;
     }
     if matrix[4][3] {
         push_key(KC_Z);
@@ -352,7 +352,7 @@ fn build_report(matrix: &StateMatrix) -> KeyboardReport {
         push_key(KC_RIGHT);
     }
     if matrix[8][4] {
-        modifier = 0x40;
+        modifier += 0x40;
     }
     if matrix[8][5] {
         push_key(KC_ENTER);
