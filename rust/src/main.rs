@@ -283,23 +283,13 @@ fn build_report(matrix: &StateMatrix) -> KeyboardReport {
         push_key(KC_DOWN);
     }
 
-    if matrix[5][0] {
-        push_key(KC_0);
-    }
-    if matrix[5][1] {
-        push_key(KC_MINUS);
-    }
-    if matrix[5][2] {
-        push_key(KC_EQUAL);
-    }
-    if matrix[5][3] {
-        push_key(KC_GRAVE);
-    }
-    if matrix[5][4] {
-        push_key(KC_Y);
-    }
-    if matrix[5][5] {
-        push_key(KC_U);
+    let kcs: [Keycode; 6] = [KC_0, KC_MINUS, KC_EQUAL, KC_GRAVE, KC_Y, KC_U];
+    let mut count = 0;
+    for col in kcs {
+        if matrix[5][count] {
+            push_key(col);
+        }
+        count += 1;
     }
     if matrix[6][0] {
         push_key(KC_I);
