@@ -227,23 +227,13 @@ fn build_report(matrix: &StateMatrix) -> KeyboardReport {
     if matrix[1][5] {
         push_key(KC_A);
     }
-    if matrix[2][0] {
-        push_key(KC_S);
-    }
-    if matrix[2][1] {
-        push_key(KC_D);
-    }
-    if matrix[2][2] {
-        push_key(KC_F);
-    }
-    if matrix[2][3] {
-        push_key(KC_G);
-    }
-    if matrix[2][4] {
-        push_key(KC_1);
-    }
-    if matrix[2][5] {
-        push_key(KC_2);
+    let kcs_2: [Keycode; 6] = [KC_S, KC_D, KC_F, KC_G, KC_1, KC_2];
+    let mut count = 0;
+    for col in kcs_2 {
+        if matrix[2][count] {
+            push_key(col);
+        }
+        count += 1;
     }
     if matrix[3][0] {
         push_key(KC_3);
@@ -283,9 +273,9 @@ fn build_report(matrix: &StateMatrix) -> KeyboardReport {
         push_key(KC_DOWN);
     }
 
-    let kcs: [Keycode; 6] = [KC_0, KC_MINUS, KC_EQUAL, KC_GRAVE, KC_Y, KC_U];
+    let kcs_5: [Keycode; 6] = [KC_0, KC_MINUS, KC_EQUAL, KC_GRAVE, KC_Y, KC_U];
     let mut count = 0;
-    for col in kcs {
+    for col in kcs_5 {
         if matrix[5][count] {
             push_key(col);
         }
@@ -310,23 +300,13 @@ fn build_report(matrix: &StateMatrix) -> KeyboardReport {
     if matrix[6][5] {
         push_key(KC_LEFT_BRACKET);
     }
-    if matrix[7][0] {
-        push_key(KC_RIGHT_BRACKET);
-    }
-    if matrix[7][1] {
-        push_key(KC_SPACE);
-    }
-    if matrix[7][2] {
-        push_key(KC_H);
-    }
-    if matrix[7][3] {
-        push_key(KC_J);
-    }
-    if matrix[7][4] {
-        push_key(KC_K);
-    }
-    if matrix[7][5] {
-        push_key(KC_L);
+    let kcs_7: [Keycode; 6] = [KC_RIGHT_BRACKET, KC_SPACE, KC_H, KC_J, KC_K, KC_L];
+    let mut count = 0;
+    for col in kcs_7 {
+        if matrix[7][count] {
+            push_key(col);
+        }
+        count += 1;
     }
     if matrix[8][0] {
         push_key(KC_SEMICOLON);
@@ -347,23 +327,13 @@ fn build_report(matrix: &StateMatrix) -> KeyboardReport {
     if matrix[8][5] {
         push_key(KC_ENTER);
     }
-    if matrix[9][0] {
-        push_key(KC_N);
-    }
-    if matrix[9][1] {
-        push_key(KC_M);
-    }
-    if matrix[9][2] {
-        push_key(KC_COMMA);
-    }
-    if matrix[9][3] {
-        push_key(KC_DOT);
-    }
-    if matrix[9][4] {
-        push_key(KC_SLASH);
-    }
-    if matrix[9][5] {
-        push_key(BOOTSEL);
+    let kcs_9: [Keycode; 6] = [KC_N, KC_M, KC_COMMA, KC_DOT, KC_SLASH, BOOTSEL];
+    let mut count = 0;
+    for col in kcs_9 {
+        if matrix[9][count] {
+            push_key(col);
+        }
+        count += 1;
     }
 
     KeyboardReport {
