@@ -105,11 +105,10 @@ fn main() -> ! {
     let mut row7 = pins.gpio15.into_push_pull_output();
     let mut row8 = pins.gpio16.into_push_pull_output();
     let mut row9 = pins.gpio17.into_push_pull_output();
-    let mut row10 = pins.gpio18.into_push_pull_output();
     let cols: &[Column] = &[&col0, &col1, &col2, &col3, &col4, &col5];
     let rows: &mut [Row] = &mut [
         &mut row0, &mut row1, &mut row2, &mut row3, &mut row4, &mut row5, &mut row6, &mut row7,
-        &mut row8, &mut row9, &mut row10,
+        &mut row8, &mut row9,
     ];
 
     let mut scan_countdown = timer.count_down();

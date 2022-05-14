@@ -3,7 +3,7 @@ kbd = Keyboard.new
 
 # Initialize GPIO assign
 kbd.init_pins(
-  [ 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 ], # row0, row1,... respectively
+  [ 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 ], # row0, row1,... respectively
   [ 2, 3, 4, 5, 6, 7 ]  # col0, col1,... respectively
   # If you put USB port on the right side, use below instead
   # [ 12, 11, 10, 9, 8 ],

@@ -13,7 +13,7 @@ gherkin.modules.append(Layers())
 gherkin.modules.append(ModTap())
 
 gherkin.col_pins = (board.GP2, board.GP3, board.GP4, board.GP5, board.GP6, board.GP7)
-gherkin.row_pins = (board.GP8, board.GP9, board.GP10, board.GP11, board.GP12, board.GP13, board.GP14, board.GP15, board.GP16, board.GP17, board.GP18)
+gherkin.row_pins = (board.GP8, board.GP9, board.GP10, board.GP11, board.GP12, board.GP13, board.GP14, board.GP15, board.GP16, board.GP17)
 
 #Rotate gherkin so USB on Right Side. Not needed if USB on Left Side.
 gherkin.col_pins = tuple(gherkin.col_pins)
