@@ -95,6 +95,8 @@ fn main() -> ! {
     let col3 = pins.gpio5.into_pull_up_input();
     let col4 = pins.gpio6.into_pull_up_input();
     let col5 = pins.gpio7.into_pull_up_input();
+    let cols: &[Column; 6] = &[&col0, &col1, &col2, &col3, &col4, &col5];
+
     let mut row0 = pins.gpio8.into_push_pull_output();
     let mut row1 = pins.gpio9.into_push_pull_output();
     let mut row2 = pins.gpio10.into_push_pull_output();
@@ -105,8 +107,7 @@ fn main() -> ! {
     let mut row7 = pins.gpio15.into_push_pull_output();
     let mut row8 = pins.gpio16.into_push_pull_output();
     let mut row9 = pins.gpio17.into_push_pull_output();
-    let cols: &[Column] = &[&col0, &col1, &col2, &col3, &col4, &col5];
-    let rows: &mut [Row] = &mut [
+    let rows: &mut [Row; 10] = &mut [
         &mut row0, &mut row1, &mut row2, &mut row3, &mut row4, &mut row5, &mut row6, &mut row7,
         &mut row8, &mut row9,
     ];
