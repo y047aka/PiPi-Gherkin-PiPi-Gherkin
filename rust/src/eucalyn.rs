@@ -3,7 +3,8 @@
 
 use core::convert::Infallible;
 
-use cortex_m::{asm, prelude::*};
+use cortex_m::asm;
+use cortex_m::prelude::*;
 use cortex_m_rt::entry;
 use defmt_rtt as _;
 use embedded_hal::digital::v2::{InputPin, OutputPin};
@@ -15,26 +16,24 @@ use panic_probe as _;
 // Uncomment the BSP you included in Cargo.toml, the rest of the code does not need to change.
 use rp_pico as bsp;
 // use sparkfun_pro_micro_rp2040 as bsp;
+use bsp::hal;
+use bsp::hal::clocks::init_clocks_and_plls;
+use bsp::hal::pac;
+use bsp::hal::sio::Sio;
+use bsp::hal::usb::UsbBus;
+use bsp::hal::watchdog::Watchdog;
 
-use bsp::hal::{
-    self, clocks::init_clocks_and_plls, pac, sio::Sio, usb::UsbBus, watchdog::Watchdog,
-};
+use usb_device::class_prelude::UsbBusAllocator;
+use usb_device::device::{UsbDeviceBuilder, UsbVidPid};
 
-use usb_device as usbd;
-use usbd::{
-    class_prelude::UsbBusAllocator,
-    device::{UsbDeviceBuilder, UsbVidPid},
-};
-
-use usbd_hid::{
-    descriptor::{KeyboardReport, SerializedDescriptor},
-    hid_class::{
-        HIDClass, HidClassSettings, HidCountryCode, HidProtocol, HidSubClass, ProtocolModeConfig,
-    },
+use usbd_hid::descriptor::{KeyboardReport, SerializedDescriptor};
+use usbd_hid::hid_class::{
+    HIDClass, HidClassSettings, HidCountryCode, HidProtocol, HidSubClass, ProtocolModeConfig,
 };
 
 mod keycode;
-use keycode::Keycode::{self, *};
+use keycode::Keycode;
+use keycode::Keycode::*;
 
 #[entry]
 fn main() -> ! {
