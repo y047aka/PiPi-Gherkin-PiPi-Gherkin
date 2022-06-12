@@ -68,7 +68,7 @@ pub enum Keycode {
     KC_UP,    //Up Arrow
 }
 
-pub fn to_u8(keycode: Keycode) -> u8 {
+pub fn to_u8(keycode: &Keycode) -> u8 {
     use Keycode::*;
 
     match keycode {

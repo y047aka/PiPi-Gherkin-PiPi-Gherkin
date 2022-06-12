@@ -95,6 +95,8 @@ fn main() -> ! {
     let col3 = pins.gpio5.into_pull_up_input();
     let col4 = pins.gpio6.into_pull_up_input();
     let col5 = pins.gpio7.into_pull_up_input();
+    let cols: &[Column; 6] = &[&col0, &col1, &col2, &col3, &col4, &col5];
+
     let mut row0 = pins.gpio8.into_push_pull_output();
     let mut row1 = pins.gpio9.into_push_pull_output();
     let mut row2 = pins.gpio10.into_push_pull_output();
@@ -105,8 +107,7 @@ fn main() -> ! {
     let mut row7 = pins.gpio15.into_push_pull_output();
     let mut row8 = pins.gpio16.into_push_pull_output();
     let mut row9 = pins.gpio17.into_push_pull_output();
-    let cols: &[Column] = &[&col0, &col1, &col2, &col3, &col4, &col5];
-    let rows: &mut [Row] = &mut [
+    let rows: &mut [Row; 10] = &mut [
         &mut row0, &mut row1, &mut row2, &mut row3, &mut row4, &mut row5, &mut row6, &mut row7,
         &mut row8, &mut row9,
     ];
@@ -180,159 +181,51 @@ fn scan_keys(rows: &mut [Row], cols: &[Column]) -> StateMatrix {
     matrix
 }
 
+#[rustfmt::skip]
+const KEYMAP: [[Keycode; 6]; 10] = [
+    [KC_TAB, KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,],
+    [KC_6,   KC_7,     KC_8,     KC_9,     KC_NO,    KC_A,],
+    [KC_S,   KC_D,     KC_F,     KC_G,     KC_1,     KC_2],
+    [KC_3,   KC_4,     KC_NO,    KC_Z,     KC_X,     KC_C,],
+    [KC_V,   KC_B,     KC_NO,    BOOTSEL,  KC_LEFT,  KC_DOWN,],
+
+    [KC_0,   KC_MINUS, KC_EQUAL, KC_GRAVE, KC_Y,     KC_U],
+    [KC_I,   KC_O,     KC_P,     KC_BACKSPACE, KC_5, KC_LEFT_BRACKET],
+    [KC_RIGHT_BRACKET, KC_SPACE, KC_H,     KC_J,     KC_K,  KC_L],
+    [KC_SEMICOLON,     KC_QUOTE, KC_UP,    KC_RIGHT, KC_NO, KC_ENTER],
+    [KC_N,   KC_M,     KC_COMMA, KC_DOT,   KC_SLASH, KC_BACKSLASH],
+];
+
 fn build_report(matrix: &StateMatrix) -> KeyboardReport {
     let mut keycodes = [0u8; 6];
     let mut keycode_count = 0;
-    let mut push_key = |keycode: Keycode| {
-        keycodes[keycode_count] = keycode::to_u8(keycode);
-        keycode_count += 1;
-    };
     let mut modifier = 0;
 
-    if matrix[0][0] {
-        push_key(KC_TAB);
-    }
-    if matrix[0][1] {
-        push_key(KC_Q);
-    }
-    if matrix[0][2] {
-        push_key(KC_W);
-    }
-    if matrix[0][3] {
-        push_key(KC_E);
-    }
-    if matrix[0][4] {
-        push_key(KC_R);
-    }
-    if matrix[0][5] {
-        push_key(KC_T);
-    }
-    if matrix[1][0] {
-        push_key(KC_6);
-    }
-    if matrix[1][1] {
-        push_key(KC_7);
-    }
-    if matrix[1][2] {
-        push_key(KC_8);
-    }
-    if matrix[1][3] {
-        push_key(KC_9);
+    for (row, cols) in matrix.iter().enumerate() {
+        for (col, key) in cols.iter().enumerate() {
+            if !*key {
+                continue;
+            }
+
+            let keycode = &KEYMAP[row][col];
+            if keycode_count < keycodes.len() {
+                keycodes[keycode_count] = keycode::to_u8(keycode);
+                keycode_count += 1;
+            }
+        }
     }
 
     if matrix[1][4] {
-        modifier += 0x01;
+        modifier += 0x01; // control
     }
-    if matrix[1][5] {
-        push_key(KC_A);
-    }
-    let kcs_2: [Keycode; 6] = [KC_S, KC_D, KC_F, KC_G, KC_1, KC_2];
-    let mut count = 0;
-    for col in kcs_2 {
-        if matrix[2][count] {
-            push_key(col);
-        }
-        count += 1;
-    }
-    if matrix[3][0] {
-        push_key(KC_3);
-    }
-    if matrix[3][1] {
-        push_key(KC_4);
-    }
-
     if matrix[3][2] {
-        modifier += 0x02;
-    }
-    if matrix[3][3] {
-        push_key(KC_Z);
-    }
-    if matrix[3][4] {
-        push_key(KC_X);
-    }
-    if matrix[3][5] {
-        push_key(KC_C);
-    }
-    if matrix[4][0] {
-        push_key(KC_V);
-    }
-    if matrix[4][1] {
-        push_key(KC_B);
+        modifier += 0x02; // shift
     }
     if matrix[4][2] {
-        modifier += 0x08;
-    }
-    if matrix[4][3] {
-        push_key(KC_Z);
-    }
-    if matrix[4][4] {
-        push_key(KC_LEFT);
-    }
-    if matrix[4][5] {
-        push_key(KC_DOWN);
-    }
-
-    let kcs_5: [Keycode; 6] = [KC_0, KC_MINUS, KC_EQUAL, KC_GRAVE, KC_Y, KC_U];
-    let mut count = 0;
-    for col in kcs_5 {
-        if matrix[5][count] {
-            push_key(col);
-        }
-        count += 1;
-    }
-    if matrix[6][0] {
-        push_key(KC_I);
-    }
-    if matrix[6][1] {
-        push_key(KC_O);
-    }
-    if matrix[6][2] {
-        push_key(KC_P);
-    }
-    if matrix[6][3] {
-        push_key(KC_BACKSPACE);
-    }
-
-    if matrix[6][4] {
-        push_key(KC_5);
-    }
-    if matrix[6][5] {
-        push_key(KC_LEFT_BRACKET);
-    }
-    let kcs_7: [Keycode; 6] = [KC_RIGHT_BRACKET, KC_SPACE, KC_H, KC_J, KC_K, KC_L];
-    let mut count = 0;
-    for col in kcs_7 {
-        if matrix[7][count] {
-            push_key(col);
-        }
-        count += 1;
-    }
-    if matrix[8][0] {
-        push_key(KC_SEMICOLON);
-    }
-    if matrix[8][1] {
-        push_key(KC_QUOTE);
-    }
-
-    if matrix[8][2] {
-        push_key(KC_UP);
-    }
-    if matrix[8][3] {
-        push_key(KC_RIGHT);
+        modifier += 0x08; // command
     }
     if matrix[8][4] {
-        modifier += 0x40;
-    }
-    if matrix[8][5] {
-        push_key(KC_ENTER);
-    }
-    let kcs_9: [Keycode; 6] = [KC_N, KC_M, KC_COMMA, KC_DOT, KC_SLASH, BOOTSEL];
-    let mut count = 0;
-    for col in kcs_9 {
-        if matrix[9][count] {
-            push_key(col);
-        }
-        count += 1;
+        modifier += 0x40; // option
     }
 
     KeyboardReport {
