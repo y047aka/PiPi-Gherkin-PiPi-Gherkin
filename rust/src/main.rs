@@ -127,7 +127,7 @@ fn main() -> ! {
                 hid.push_input(&report).ok();
             } else {
                 let state = scan_keys(rows, cols);
-                if state[4][3] {
+                if false {
                     if !is_macro_pressed {
                         for report in MACRO_SEQUENCE_Y047AKA {
                             macro_queue.push_back(report.clone()).ok();

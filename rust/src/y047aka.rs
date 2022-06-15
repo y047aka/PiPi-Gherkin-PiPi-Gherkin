@@ -188,11 +188,11 @@ const KEYMAP: [[Keycode; 6]; 10] = [
     [KC_3,   KC_4,     KC_NO,    KC_Z,     KC_X,     KC_C,],
     [KC_V,   KC_F,     KC_NO,    BOOTSEL,  KC_LEFT,  KC_DOWN,],
 
-    [KC_0,   KC_GRAVE, KC_MINUS, KC_EQUAL, KC_M,     KC_R],
-    [KC_D,   KC_Y,     KC_P,     KC_BACKSPACE, KC_5, KC_LEFT_BRACKET],
-    [KC_RIGHT_BRACKET, KC_SPACE, KC_G,     KC_T,     KC_K, KC_N],
-    [KC_S,   KC_QUOTE, KC_UP,    KC_RIGHT, KC_NO,    KC_ENTER],
-    [KC_B,   KC_H,     KC_J,     KC_L,     KC_SLASH, KC_BACKSLASH],
+    [KC_0,   KC_GRAVE, KC_EQUAL, KC_QUOTE, KC_Y,     KC_G],
+    [KC_K,   KC_R,     KC_P,     KC_BACKSPACE, KC_5, KC_LEFT_BRACKET],
+    [KC_RIGHT_BRACKET, KC_SPACE, KC_D,     KC_H,     KC_T, KC_N],
+    [KC_S,   KC_MINUS, KC_UP,    KC_RIGHT, KC_NO,    KC_ENTER],
+    [KC_B,   KC_M,     KC_J,     KC_L,     KC_SLASH, KC_BACKSLASH],
 ];
 
 fn build_report(matrix: &StateMatrix) -> KeyboardReport {
